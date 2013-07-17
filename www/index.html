@@ -1,42 +1,136 @@
-<!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="phonegap.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+<head>
+<meta name="viewport" content="width=320; user-scalable=no" />
+<script type='text/javascript' charset='utf-8' src='cordova-2.0.0.js'></script>
+<script type='text/javascript' src='paypal.js'></script>
+<script type='text/javascript' src='demo.js'></script>
+</head>
+<body onload="onBodyLoad()">
+
+<table align='center'>
+  <tr>
+    <td>
+      <b>PayPal Mobile Payments</b>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>with JavaScript Native Apps</b>   </td>
+  </tr>
+  <tr>
+    <tr>
+    <td>
+      <b>powered by PhoneGap</b>   </td>
+  </tr>
+  <tr>
+    <td>
+      <input type='button' onclick='return runDemo();' value='Run Demo' />
+      <input type='button' onclick='return showDemoDetails();' value='Details' />
+    </td>
+  </tr>
+</table>
+
+<div id='pmt_details' style='position:relative;display:none;'>
+Make a payment in 3 easy steps:
+  <ul>
+    <li>Initialize JavaScript Mobile Payments Library</li>
+    <li>Set payment information</li>
+    <li>Make payment</li>
+  </ul>
+After a payment is made, the transaction results can be checked.
+</div>
+
+
+<div id='pmt_container' style='position:relative;display:none;'>
+
+<div id='pmt_show_initialize' style='display:none;'>
+1. <input type='button' onclick='return initializeMPL();' value='Initialize MPL' />
+<br>
+</div>
+<img id='pmt_show_loading' src='loadingAnimation.gif' style='display:none;' />
+<br>
+
+<div id='pmt_show_details' style='display:none;'>
+2. <input type='button' onclick='return showPaymentInfoForm();' value='Set Payment Information' />
+</div>
+
+<div id='pmt_show_details_form' style='display:none;'>
+  <form method="POST">
+    <table>
+      <tr>
+	<td align='right'>Subtotal:</td>
+	<td><input id='pmt_subtotal' type='number' value='7.25' />
+	</td>
+      </tr>
+      <tr>
+	<td align='right'>Currency:</td>
+	<td><input id='pmt_currency' type='text' value='USD' /></td>
+      </tr>
+      <tr>
+	<td align='right'>Recipient:</td>
+	
+	<!-- In sandbox mode, this email address should be the seller email address -->
+	
+	<td><input id='pmt_recipient' type='email' value='paulb7_1308088555_biz@yahoo.com' /></td>
+      </tr>
+      <tr>
+	<td align='right'>Merchant:</td>
+	<td><input id='pmt_merchant' type='text' value="My Test Store" /></td>
+      </tr>
+      <tr>
+	<td align='right'>Description:</td>
+	<td><input id='pmt_description' type='text' value='something' /></td>
+      </tr>
+      <tr>
+	<td align='right'>Memo:</td>
+	<td><input id='pmt_memo' type='text' value='testing sale' /></td>
+      </tr>
+      <tr>
+	<td align='right'>Tax:</td>
+	<td><input id='pmt_tax' type='number' value='0.0' /></td>
+      </tr>
+      <tr>
+	<td align='right'>Shipping:</td>
+	<td><input id='pmt_shipping' type='number' value='0.0' /></td>
+      </tr>
+      <tr>
+	<td align='center' colspan='2'>
+	  <input type='button' onclick='return setPaymentInfoForm();' value='Set' />
+	  <input type='button' onclick='return closePaymentInfoForm();' value='Cancel' /><br>
+	</td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<div id='pmt_show_buttons' style='position:relative;height:50px;'>
+  <table>
+    <tr>
+      <td>
+	3.
+      </td>
+      <td>
+	<img src="btn_xpressCheckout.gif" style="margin-right:7px;" onclick='payButton(0);' />
+      </td>
+      <td>
+	or
+      </td>
+      <td>
+	<img src="btn_donate_LG.gif" style="margin-right:7px;" onclick='payButton(1);' />
+      </td>
+    </tr>
+  </table>
+</div>
+<br>
+
+<div id='pmt_results' style='border:0px solid black;'>
+</div>
+<!--
+<input type='button' onclick="return mpl.preapproval();" value='preapproval' />
+<br>
+-->
+
+</div>
+
+</body>
 </html>
